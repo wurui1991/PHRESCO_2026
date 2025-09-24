@@ -12,7 +12,7 @@ The general pipeline for physical reservoir computing consists of:
 $I(t) = 0.2 \sin!\left(\tfrac{2\pi f_{1} t}{T}\right)\sin!\left(\tfrac{2\pi f_{2} t}{T}\right)\sin!\left(\tfrac{2\pi f_{3} t}{T}\right)$,
 where $f_{1}=2.11,\text{Hz}$, $f_{2}=3.73,\text{Hz}$, $f_{3}=4.33,\text{Hz}$, and the parameter $T$ controls the phase velocity.
 2. **Target Output**: NARMA series generated from the input signal using a function. For NARMA2, the function is:
-$y(t+1)=0.4,y(t)+0.4,y(t),y(t-1)+0.6,I(t)^{3}+0.1$,
+$y(t+1)=0.4y(t)+0.4y(t)y(t-1)+0.6I(t)^{3}+0.1$,
 for NARMA-n, the function is:
 $y(t+1)=\alpha y(t)+\beta y(t)!\left(\sum_{j=0}^{n-1} y(t-j)\right)+\gamma I(t-n+1)I(t)+\delta$,
 where $\alpha=0.3$, $\beta=0.05$, $\gamma=1.5$, $\delta=0.1$. Those equations introduce memory and nonlinearity to the input signal.
