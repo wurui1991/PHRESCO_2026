@@ -35,7 +35,7 @@ This example demonstrates one of the easiest possible physical reservoir computi
 
 **Experimental Setup:**
 - **Reservoir**: A standard A4 paper, crumpled and then partially flattened, fixed at its centre point.
-- **Input Actuation**: Servo motor providing angular displacement following the input signal. The input signal used in the NARMA2 test is the displacement of the green marker extracted from an iPhone camera recording (which guarantees synchronisation between the input and output).
+- **Input Actuation**: Servo motor providing angular displacement following the input signal (servo controlled by an Arduino running `Arduino_crumpled_paper.ino`). The input signal used in the NARMA2 test is the displacement of the green marker extracted from an iPhone camera recording (which guarantees synchronisation between the input and output).
 - **Output Extraction**: 22 reservoir state variables (X and Y positions of the 11 blue markers) tracked by camera.
 
 ### Data Processing Pipeline
@@ -53,16 +53,9 @@ This example demonstrates one of the easiest possible physical reservoir computi
 
 ### Results
 
-![NARMA Results](results_figure.png)
+We tested the system at different frequency ratios (scaling factors applied to the base input frequencies) from 1.0 to 4, using both NARMA2 and NARMA5 benchmarks:
 
-We tested the system at different frequency ratios (scaling factors applied to the base input frequencies) from 0.25 to 1.0:
-
-| Frequency Ratio | NARMA-2 NMSE | NARMA-5 NMSE |
-|-----------------|--------------|--------------|
-| 0.25           | 15.2%        | 38.7%        |
-| 0.50           | 12.8%        | 35.2%        |
-| 0.75           | 14.1%        | 41.3%        |
-| 1.00           | 18.6%        | 45.8%        |
+![NARMA Results](images/crumpled_paper_result.png)
 
 **Key Findings:**
 - NARMA-2 NMSE consistently below 20% across multiple frequency ratios
