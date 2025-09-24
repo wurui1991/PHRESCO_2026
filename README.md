@@ -9,7 +9,7 @@ This repository contains examples of Physical Reservoir Computing (PRC) systems 
 The general pipeline for physical reservoir computing consists of:
 
 1. **Input Signal**: A time-varying signal that drives the physical system. In PHRESCO we use a multi-frequency sinusoidal:
-$I(t) = 0.2 \sin!\left(\tfrac{2\pi f_{1} t}{T}\right)\sin!\left(\tfrac{2\pi f_{2} t}{T}\right)\sin!\left(\tfrac{2\pi f_{3} t}{T}\right)$,
+$I(t) = 0.2 \sin\left(\tfrac{2\pi f_{1} t}{T}\right)\sin\left(\tfrac{2\pi f_{2} t}{T}\right)\sin\left(\tfrac{2\pi f_{3} t}{T}\right)$,
 where $f_{1}=2.11,\text{Hz}$, $f_{2}=3.73,\text{Hz}$, $f_{3}=4.33,\text{Hz}$, and the parameter $T$ controls the phase velocity.
 2. **Target Output**: NARMA series generated from the input signal using a function. For NARMA2, the function is:
 $y(t+1)=0.4y(t)+0.4y(t)y(t-1)+0.6I(t)^{3}+0.1$,
