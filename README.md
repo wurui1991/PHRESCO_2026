@@ -1,6 +1,6 @@
 # Physical Reservoir Computing Examples
 
-This repository contains examples of Physical Reservoir Computing (PRC) systems suitable for PHRESCO 2026 competition submissions. We are preparing multiple examples that will be updated gradually. All examples use the NARMA-2 (Nonlinear Auto-Regressive Moving Average) test as a benchmark to evaluate the computational capabilities of the physical reservoirs.
+This repository contains examples of Physical Reservoir Computing (PRC) systems suitable for PHRESCO 2026 competition submissions. We are preparing multiple examples that will be updated gradually. All examples use the NARMA2 (Nonlinear Auto-Regressive Moving Average) test as a benchmark to evaluate the computational capabilities of the physical reservoirs.
 
 ## Overview: Physical Reservoir Computing Pipeline
 
@@ -8,17 +8,22 @@ This repository contains examples of Physical Reservoir Computing (PRC) systems 
 
 The general pipeline for physical reservoir computing consists of:
 
-1. **Input Signal**: A time-varying signal, in this case a multi-frequency sinusoidal that drives the physical system: `I(t) = 0.2 sin(2πf₁t/T) sin(2πf₂t/T) sin(2πf₃t/T)`
+1. **Input Signal**: A time-varying signal that drives the physical system. In PHRESCO we use a multi-frequency sinusoidal:
+$I(t) = 0.2 \sin!\left(\tfrac{2\pi f_{1} t}{T}\right)\sin!\left(\tfrac{2\pi f_{2} t}{T}\right)\sin!\left(\tfrac{2\pi f_{3} t}{T}\right)$,
+where $f_{1}=2.11,\text{Hz}$, $f_{2}=3.73,\text{Hz}$, $f_{3}=4.33,\text{Hz}$, and the parameter $T$ controls the phase velocity.
+2. **Target Output**: NARMA series generated from the input signal using a function. For NARMA2, the function is:
+$y(t+1)=0.4,y(t)+0.4,y(t),y(t-1)+0.6,I(t)^{3}+0.1$,
+for NARMA-n, the function is:
+$y(t+1)=\alpha y(t)+\beta y(t)!\left(\sum_{j=0}^{n-1} y(t-j)\right)+\gamma I(t-n+1)I(t)+\delta$,
+where $\alpha=0.3$, $\beta=0.05$, $\gamma=1.5$, $\delta=0.1$. Those equations introduce memory and nonlinearity to the input signal.
+4. **Physical Reservoir** 
+5. **Linear Readout**: A trained linear layer that maps reservoir states to the target output.
 
-2. **Target Output**: NARMA series generated from the input signal using a function: `y(t+1) = αy(t) + βy(t)(Σⱼ₌₀ⁿ⁻¹ y(t-j)) + γI(t-n+1)I(t) + δ`, where α = 0.3, β = 0.05, γ = 1.5, δ = 0.1 for NARMA-n (n ≥ 3), which introduces memory and nonlinearity
-3. **Physical Reservoir** 
-4. **Linear Readout**: A trained linear layer that maps reservoir states to the target outputs
+If a physical reservoir passes the NARMA test—i.e., the linear readout can produce the target output when the reservoir is driven by the input signal—this means the reservoir-readout system processes the input signal in the same way as the NARMA equation. Since the NARMA equation introduces memory and nonlinearity, the reservoir-readout system must also exhibit the same memory and nonlinearity. Because the linear readout itself has no memory or nonlinearity, these must arise from the physical reservoir. Therefore, passing the NARMA test demonstrates that the physicial reservoir possesses memory and nonlinearity.
 
-The NARMA-n benchmark generates a target series according to:
-```
-y(t+1) = αy(t) + βy(t)Σy(t-j) + γI(t-n+1)I(t) + δ
-```
-where the parameters α, β, γ, δ depend on the NARMA order, and the system must integrate nonlinear transformations with memory of past states.
+In PHRESCO, we require all participants to use the input signal described above. A reservoir qualifies for submission if it achieves a Normalised Mean Square Error (NMSE) below 20%.
+
+The input signal and NARMA equation are adapted from Nakajima, Kohei, et al. "Information processing via physical soft body." Scientific reports 5.1 (2015): 10487.
 
 ## Example 1: Crumpled Paper Reservoir
 
