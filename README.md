@@ -4,7 +4,7 @@ This repository contains examples of Physical Reservoir Computing (PRC) systems 
 
 ## Overview: Physical Reservoir Computing Pipeline
 
-![PRC Pipeline](pipeline_diagram.png)
+![PRC Pipeline](images/pipeline_diagram.png)
 
 The general pipeline for physical reservoir computing consists of:
 
