@@ -29,41 +29,27 @@ The input signal and NARMA equation are adapted from Nakajima, Kohei, et al. "In
 
 ### Overview
 
-This example demonstrates one of the simplest possible physical reservoir computing systems that can qualify as a PHRESCO submission. The reservoir consists of a crumpled A4 paper with markers tracked by computer vision, showing that even everyday materials can perform complex computations.
+This example demonstrates one of the easiest possible physical reservoir computing systems that can qualify as a PHRESCO submission. 
 
-### Experimental Setup
+![Experimental Setup](images/crumpled_paper_setup.png)
 
-![Experimental Setup](setup_figure.png)
-
-**Components:**
-- **Reservoir**: A standard A4 paper, crumpled and then partially flattened, fixed at its center point
-- **Input Actuation**: Servo motor providing angular displacement following the input signal
-- **Output Sensing**: 11 blue markers placed on the paper surface, tracked via computer vision
-- **Recording**: iPhone camera capturing both input (green servo marker) and output (blue paper markers) for synchronization
-
-**Signal Flow:**
-1. Multi-frequency input signal drives servo motor:
-   ```
-   I(t) = 0.2 sin(2πf₁t/T) sin(2πf₂t/T) sin(2πf₃t/T)
-   ```
-2. Servo displacement mechanically perturbs the crumpled paper
-3. Paper deformation propagates through crumpled structure (providing nonlinearity and memory)
-4. Marker positions (X and Y coordinates) serve as reservoir states
-5. Linear readout trained to predict NARMA series from marker trajectories
+**Experimental Setup:**
+- **Reservoir**: A standard A4 paper, crumpled and then partially flattened, fixed at its centre point.
+- **Input Actuation**: Servo motor providing angular displacement following the input signal. The input signal used in the NARMA2 test is the displacement of the green marker extracted from an iPhone camera recording (which guarantees synchronisation between the input and output).
+- **Output Extraction**: 22 reservoir state variables (X and Y positions of the 11 blue markers) tracked by camera.
 
 ### Data Processing Pipeline
 
-1. **Video Tracking** (`phrescopaper2.m`):
-   - Tracks green servo marker for input signal
-   - Tracks 11 blue markers on paper for reservoir states  
-   - Outputs both X and Y displacements for each marker (22 state dimensions total)
+1. **Video Tracking** (`CP_video_processing.m`):
+   - Extract input signal and reservoir states from video (60 fps)
    - Saves to MAT file with 60 Hz sampling rate
 
 2. **NARMA Benchmark** (`CrumpledPaper.m`):
    - Loads tracking data
-   - Generates NARMA-2 or NARMA-5 target series from input
+   - Generates NARMA target series from input
    - Trains linear readout using least squares (80% train, 20% test)
    - Evaluates Normalized Mean Square Error (NMSE)
+   - Visualise the results
 
 ### Results
 
