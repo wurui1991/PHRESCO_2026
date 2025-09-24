@@ -42,7 +42,7 @@ This example demonstrates one of the easiest possible physical reservoir computi
 
 1. **Video Tracking** (`CP_video_processing.m`):
    - Extract input signal and reservoir states from video (60 fps)
-   - Saves to MAT file with 60 Hz sampling rate
+   - Saves to MAT file with 60 Hz sampling rate (an example is given as `motion_tracking_50_3freq.mat`)
 
 2. **NARMA Benchmark** (`CrumpledPaper.m`):
    - Loads tracking data
