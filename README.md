@@ -53,12 +53,8 @@ This example demonstrates one of the easiest possible physical reservoir computi
 
 ### Results
 
-We tested the system at different frequency ratios (scaling factors applied to the base input frequencies) from 1.0 to 4, using both NARMA2 and NARMA5 benchmarks:
+We tested the system at different frequency ratios (scaling factor T applied simulatneously to the three base input frequencies) from 1 to 4, with both NARMA2 and NARMA5 benchmarks:
 
-![NARMA Results](images/crumpled_paper_result.png)
+![NARMA Results](images/crumpled_paper_result.bmp)
 
-**Key Findings:**
-- NARMA-2 NMSE consistently below 20% across multiple frequency ratios
-- Performance demonstrates sufficient nonlinearity and memory for PHRESCO qualification
-- Optimal performance around 0.5× frequency ratio, suggesting resonance with paper dynamics
-- Simple mechanical system achieves computational performance comparable to more complex reservoirs
+Since the reservoir has achieved a NMSE below 20% in NARMA2 test at certian actuation frequencies, it is qualified for PHRESCO submission.
