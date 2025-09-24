@@ -1,6 +1,6 @@
 # Physical Reservoir Computing Examples
 
-This repository contains examples of Physical Reservoir Computing (PRC) systems suitable for PHRESCO (Physical Reservoir Computing) competition submissions. We are preparing multiple examples that will be updated gradually. All examples use the NARMA (Nonlinear Auto-Regressive Moving Average) test as a benchmark to evaluate the computational capabilities of physical systems.
+This repository contains examples of Physical Reservoir Computing (PRC) systems suitable for PHRESCO 2026 competition submissions. We are preparing multiple examples that will be updated gradually. All examples use the NARMA-2 (Nonlinear Auto-Regressive Moving Average) test as a benchmark to evaluate the computational capabilities of the physical reservoirs.
 
 ## Overview: Physical Reservoir Computing Pipeline
 
@@ -8,12 +8,11 @@ This repository contains examples of Physical Reservoir Computing (PRC) systems 
 
 The general pipeline for physical reservoir computing consists of:
 
-1. **Input Signal**: A time-varying signal (e.g., multi-frequency sinusoidal) that drives the physical system
-2. **Physical Reservoir**: A physical system that provides the essential properties:
-   - **Nonlinearity**: Enables computation of nonlinear functions
-   - **Memory**: Retains information about past inputs through its dynamics
-3. **Linear Readout**: A trained linear layer that maps reservoir states to desired outputs
-4. **Target Output**: NARMA series that tests both memory and nonlinear processing capabilities
+1. **Input Signal**: A time-varying signal, in this case a multi-frequency sinusoidal that drives the physical system: `I(t) = 0.2 sin(2πf₁t/T) sin(2πf₂t/T) sin(2πf₃t/T)`
+
+2. **Target Output**: NARMA series generated from the input signal using a function: `y(t+1) = αy(t) + βy(t)(Σⱼ₌₀ⁿ⁻¹ y(t-j)) + γI(t-n+1)I(t) + δ`, where α = 0.3, β = 0.05, γ = 1.5, δ = 0.1 for NARMA-n (n ≥ 3), which introduces memory and nonlinearity
+3. **Physical Reservoir** 
+4. **Linear Readout**: A trained linear layer that maps reservoir states to the target outputs
 
 The NARMA-n benchmark generates a target series according to:
 ```
@@ -79,74 +78,3 @@ We tested the system at different frequency ratios (scaling factors applied to t
 - Performance demonstrates sufficient nonlinearity and memory for PHRESCO qualification
 - Optimal performance around 0.5× frequency ratio, suggesting resonance with paper dynamics
 - Simple mechanical system achieves computational performance comparable to more complex reservoirs
-
-### Running the Code
-
-**Requirements:**
-- MATLAB R2020a or later
-- Computer Vision Toolbox (for video processing)
-
-**Steps:**
-1. Record video of crumpled paper system with servo input
-2. Process video to extract tracking data:
-   ```matlab
-   % Set video file and parameters
-   videoFile = 'your_video.mov';
-   % Run tracking
-   run phrescopaper2.m
-   ```
-3. Evaluate NARMA performance:
-   ```matlab
-   % Run benchmark with generated MAT file
-   results = narma_benchmark('motion_tracking_data.mat', ...
-       'NarmaOrder', 2, ...
-       'TrainFraction', 0.8);
-   ```
-
-### Why This Qualifies for PHRESCO
-
-This crumpled paper system demonstrates several key principles:
-
-1. **Accessibility**: Uses common materials (paper, basic servo, smartphone camera)
-2. **Computational Capability**: Achieves NMSE < 20% on NARMA-2 benchmark
-3. **Physical Complexity**: Crumpling creates rich nonlinear dynamics through:
-   - Irregular fold patterns acting as nonlinear springs
-   - Distributed mechanical coupling providing memory
-   - Multiple timescales from different fold hierarchies
-4. **Scalability**: Can easily modify paper size, crumpling degree, or marker count
-
-### File Structure
-
-```
-crumpled_paper/
-├── phrescopaper2.m          # Video tracking and data extraction
-├── CrumpledPaper.m          # NARMA benchmark evaluation
-├── motion_tracking_*.mat    # Processed tracking data
-└── figures/                 # Visualization outputs
-```
-
-## Upcoming Examples
-
-Additional physical reservoir computing examples will be added:
-- [ ] Water surface waves
-- [ ] Elastic membrane with multiple actuators  
-- [ ] Coupled pendulum arrays
-- [ ] Soft robotic materials
-- [ ] Optical fiber loops
-
-Each example will follow the same evaluation framework using NARMA benchmarks to ensure comparable performance metrics.
-
-## Citation
-
-If you use this code or methodology, please cite:
-```
-[Citation to be added upon publication]
-```
-
-## License
-
-MIT License - See LICENSE file for details
-
-## Contact
-
-For questions about implementations or PHRESCO submissions, please open an issue or contact [contact information].
