@@ -31,7 +31,7 @@ The input signal and NARMA equation are adapted from Nakajima, Kohei, et al. "In
 
 This example demonstrates one of the easiest possible physical reservoir computing systems that can qualify as a PHRESCO submission. 
 
-![Experimental Setup](images/crumpled_paper_setup.png)
+![Experimental Setup](images/crumpled_paper_setup.gif)
 
 **Experimental Setup:**
 - **Reservoir**: A standard A4 paper, crumpled and then partially flattened, fixed at its centre point.
