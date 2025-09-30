@@ -15,7 +15,7 @@ where $f_{1}=2.11,\text{Hz}$, $f_{2}=3.73,\text{Hz}$, $f_{3}=4.33,\text{Hz}$, an
 $y(t+1)=0.4y(t)+0.4y(t)y(t-1)+0.6I(t)^{3}+0.1$.
 For NARMA-n, the function is:
 $y(t+1)=\alpha y(t)+\beta y(t)\left(\sum_{j=0}^{n-1} y(t-j)\right)+\gamma I(t-n+1)I(t)+\delta$,
-where $\alpha=0.3$, $\beta=0.05$, $\gamma=1.5$, $\delta=0.1$. Those equations introduce memory and nonlinearity to the input signal.
+where $\alpha=0.3$, $\beta=0.05$, $\gamma=1.5$, $\delta=0.1$. Those equations generate target NARMA series from the initial state of $y(0)=0$, which introduces memory and nonlinearity.
 4. **Physical Reservoir** 
 5. **Linear Readout**: A trained linear layer that maps reservoir states to the target output.
 
