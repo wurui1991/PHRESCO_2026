@@ -13,9 +13,6 @@ Sketch used for the 2025 recordings: Crumpled_paper.ino (repository root)
     every 5 ms: pulse += clamp(target - pulse, -500, +500); servo.writeMicroseconds(pulse)
     m  = freqMult (the "50" in motion_tracking_50_3freq.mat -> m = 0.50)
     t  = (millis() - t0)/1000, seconds since the Arduino started
-The tidied public sketch (Arduino_crumpled_paper.ino, Sep 2025: 1500 + 500*0.5*sig,
-20 ms updates) gives the same waveform up to offset and gain, which the NARMA
-input scaling removes; use sketch="public" to model it instead.
 
 Why a sync step is needed (legacy recordings only)
     The 2025 recordings did not log the Arduino clock, so the time t0 at which
@@ -47,7 +44,7 @@ BASE_FREQS = np.array([2.11, 3.73, 4.33])  # Hz, from the Arduino sketch
 SKETCHES = {
     # Crumpled_paper.ino, used for the 2025 recordings
     "lab2025": dict(step=0.005, amp=1.0, us_min=800, us_max=2200, slew=500),
-    # Arduino_crumpled_paper.ino, public version on GitHub
+    # variant with 1500 +/- 250 us and 20 ms updates (not used for the recordings)
     "public": dict(step=0.020, amp=0.5, us_min=1000, us_max=2000, slew=None),
 }
 SKETCH = "lab2025"
