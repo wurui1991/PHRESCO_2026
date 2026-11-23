@@ -1,0 +1,4 @@
+__pycache__/
+python/result_*.png
+python/comparison_NMSE.*
+.DS_Store

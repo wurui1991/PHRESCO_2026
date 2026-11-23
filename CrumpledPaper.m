@@ -8,7 +8,12 @@
 % Description:
 %    NARMA benchmark for physical reservoir computing:
 %      1. Load marker tracking data from a MAT file
-%      2. Generate NARMA series as ground truth
+%      2. Generate NARMA series as ground truth, driven by the signal SENT to
+%         the servo (Arduino command), not by a marker measured on the paper.
+%         The servo, the servo/paper coupling and the paper are all part of
+%         the reservoir. See the README.
+%         (Before Nov 2026 the target was driven by the green marker's
+%         x-position; use 'InputSource','marker' to reproduce that.)
 %      3. Train a linear readout to predict NARMA from marker positions
 %      4. Evaluate and visualize the results with comprehensive error analysis
 %
@@ -25,7 +30,8 @@ results = narma_benchmark( ...
     'TrainFraction', 0.8,            ... % 80% train, 20% test
     'WashoutFraction', 0.2,          ... % 20% initial washout
     'NarmaOrder', 2,                ... % NARMA-2 (can be 2, 3, 4, etc.)
-    'InterpFactor', 1,               ... % Upsample (to assist trajectory visualisation when needed)
+    'InputSource', 'command',        ... % 'command' = Arduino servo signal (correct); 'marker' = legacy
+    'InterpFactor', 1,                ... % Upsample (to assist trajectory visualisation when needed)
     'CenterSignals', true,           ... % Centre signals for better visualization
     'NormalizeSignals', true);       ... % Normalize to [-1,1] for better visualization
 
@@ -49,6 +55,8 @@ addParameter(p, 'InterpMethod', 'pchip', @(x)ischar(x)||isstring(x));
 addParameter(p, 'NarmaOrder', 2, @(x)isnumeric(x)&&x>=2&&mod(x,1)==0);
 addParameter(p, 'CenterSignals', false, @islogical);
 addParameter(p, 'NormalizeSignals', false, @islogical);
+addParameter(p, 'InputSource', 'command', @(x)any(strcmpi(x,{'command','marker'})));
+addParameter(p, 'SyncFile', 'servo_command_sync.json', @(x)ischar(x)||isstring(x));
 
 parse(p, matFile, varargin{:});
 opts = p.Results;
@@ -72,7 +80,7 @@ end
 
 % Extract essential data
 frame_numbers = tracking.frameNumbers;
-servo_input = tracking.servoPos(:,1);      % Servo displacement (input)
+green_marker_x = tracking.servoPos(:,1);   % green marker on the paper (legacy input)
 markers_3D = tracking.blueXPos;            % Marker positions [samples x markers x 2(X,Y)]
 
 % Get sample rate for physical time
@@ -93,6 +101,29 @@ fprintf('Duration: %.2f seconds at %d Hz\n', time_vec(end)-time_vec(1), sample_r
 % This treats X,Y coordinates as separate channels
 marker_states = reshape(markers_3D, nSamples, nMarkers * nDims);
 fprintf('Reservoir states: %d channels (X,Y for each marker)\n', size(marker_states, 2));
+
+% -------------------------------------------------------------------------
+% NARMA input u(t)
+% -------------------------------------------------------------------------
+% 'command': the pulse width the Arduino sends to the servo
+% (~/Documents/Arduino/Crumpled_paper/Crumpled_paper.ino). For the 2025
+% recordings the Arduino clock was not logged, so the time of the first
+% video frame on the Arduino clock (t0) was recovered once by
+% python/servo_command.py and stored in servo_command_sync.json.
+if strcmpi(opts.InputSource, 'command')
+    [~, fname, fext] = fileparts(matFile);
+    S = jsondecode(fileread(opts.SyncFile));
+    e = S(strcmp({S.file}, [fname fext]));
+    if isempty(e)
+        error('No sync entry for %s in %s. Run servo_command.py first.', [fname fext], opts.SyncFile);
+    end
+    k = (0:nSamples-1)' / sample_rate;
+    servo_input = arduino_servo_signal(e.clock_scale * (e.t0 + k), e.m, e.sign);   % pulse width (us)
+    fprintf('Input: Arduino servo pulse width, us (m = %.2f, sync fit R^2 = %.3f)\n', e.m, e.fit_R2);
+else
+    servo_input = green_marker_x;
+    fprintf('Input: LEGACY green marker x-position (servo and coupling NOT in the reservoir)\n');
+end
 
 % Ensure column vectors
 servo_input = servo_input(:);
@@ -315,7 +346,7 @@ figure('Name', 'System Overview', 'Position', [100, 650, 1200, 700]);
 % Input signal
 subplot(3, 1, 1);
 plot(time_vec, servo_input, 'k-', 'LineWidth', 1);
-ylabel('Servo Input');
+ylabel('Servo pulse (us)');
 title('Physical Reservoir Computing: Input → Markers → NARMA Output');
 grid on;
 xlim([time_vec(1), time_vec(end)]);
@@ -430,4 +461,18 @@ results.opts = opts;
 results.norm_stats = norm_stats;
 results.nMarkers = nMarkers;
 
+end
+
+% =========================================================================
+% SERVO COMMAND (Crumpled_paper.ino, the sketch used for the 2025 recordings)
+% =========================================================================
+function pulse = arduino_servo_signal(t, m, sgn)
+% t : Arduino time in seconds, m : freqMult, sgn : direction convention (+1/-1)
+% Returns the servo pulse width in microseconds, exactly as the Arduino
+% writes it: every 5 ms, target = 800 + int((sig*ampScale + 1)/2 * 1400),
+% ampScale = 1. (Its slew-rate limit of 500 us per step is never reached.)
+f = [2.11, 3.73, 4.33];   % base frequencies (Hz)
+t = floor(t / 0.005) * 0.005;
+sig = sgn * sin(2*pi*f(1)*m*t) .* sin(2*pi*f(2)*m*t) .* sin(2*pi*f(3)*m*t);
+pulse = 800 + fix((sig + 1) * 0.5 * 1400);
 end

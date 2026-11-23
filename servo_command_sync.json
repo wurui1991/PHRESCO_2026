@@ -1,0 +1,172 @@
+[
+ {
+  "file": "motion_tracking_100_3freq.mat",
+  "m": 1.0,
+  "t0": 63.204951806927,
+  "clock_scale": 1.0035508144516836,
+  "sign": -1.0,
+  "fit_R2": 0.8611813975668832,
+  "coarse_corr": 0.8195885858159958,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_100_3freq_r2.mat",
+  "m": 1.0,
+  "t0": 3.975300468853863,
+  "clock_scale": 1.0007132823565201,
+  "sign": -1.0,
+  "fit_R2": 0.8767459916934133,
+  "coarse_corr": 0.9267599669986388,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_25_3freq.mat",
+  "m": 0.5,
+  "t0": 108.59556622591147,
+  "clock_scale": 0.999540718860632,
+  "sign": -1.0,
+  "fit_R2": 0.9873211722476877,
+  "coarse_corr": 0.9861423593094439,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time); WARNING: file name says m=0.25 but the recorded motion only fits m=0.50 (R2 0.11 vs 0.99)"
+ },
+ {
+  "file": "motion_tracking_30_3freq.mat",
+  "m": 0.3,
+  "t0": 197.47917160066936,
+  "clock_scale": 1.0033512247955354,
+  "sign": -1.0,
+  "fit_R2": 0.9899568475093533,
+  "coarse_corr": 0.9393520225723253,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_35_3freq.mat",
+  "m": 0.35,
+  "t0": 147.35298269441586,
+  "clock_scale": 1.0024972747495244,
+  "sign": -1.0,
+  "fit_R2": 0.982357086765005,
+  "coarse_corr": 0.9761074265911507,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_35_3freq1.mat",
+  "m": 0.35,
+  "t0": 147.35298269441586,
+  "clock_scale": 1.0024972747495244,
+  "sign": -1.0,
+  "fit_R2": 0.982357086765005,
+  "coarse_corr": 0.9761074265911507,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_42_3freq.mat",
+  "m": 0.42,
+  "t0": 128.18150327746127,
+  "clock_scale": 1.001286802894302,
+  "sign": -1.0,
+  "fit_R2": 0.9826471916700911,
+  "coarse_corr": 0.953414734991463,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_46_3freq.mat",
+  "m": 0.46,
+  "t0": 20.77026767003874,
+  "clock_scale": 1.00050960460103,
+  "sign": 1.0,
+  "fit_R2": 0.9844000130231892,
+  "coarse_corr": 0.9891841493746767,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_50_3freq.mat",
+  "m": 0.5,
+  "t0": 33.28769801869687,
+  "clock_scale": 1.0020095884422857,
+  "sign": 1.0,
+  "fit_R2": 0.9704115144622847,
+  "coarse_corr": 0.9598688758440174,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_50_3freq_r2.mat",
+  "m": 0.5,
+  "t0": 184.5122194705059,
+  "clock_scale": 1.0005479094437597,
+  "sign": -1.0,
+  "fit_R2": 0.9865534443940984,
+  "coarse_corr": 0.9901002372910369,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_55_3freq.mat",
+  "m": 0.55,
+  "t0": 187.6738210618928,
+  "clock_scale": 1.0006919345632372,
+  "sign": 1.0,
+  "fit_R2": 0.9775693122750158,
+  "coarse_corr": 0.9747745911034167,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_60_3freq.mat",
+  "m": 0.6,
+  "t0": 6.008614471458762,
+  "clock_scale": 1.0013908217304623,
+  "sign": 1.0,
+  "fit_R2": 0.9535917159574872,
+  "coarse_corr": 0.9394921237511693,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_65_3freq.mat",
+  "m": 0.65,
+  "t0": 14.110117587177182,
+  "clock_scale": 1.0006598355990208,
+  "sign": 1.0,
+  "fit_R2": 0.9649507925531183,
+  "coarse_corr": 0.9693998204723496,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_70_3freq.mat",
+  "m": 0.7,
+  "t0": 79.91612346384544,
+  "clock_scale": 1.0059367489819424,
+  "sign": -1.0,
+  "fit_R2": 0.9450794392863905,
+  "coarse_corr": 0.7596789937032462,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_76_3freq.mat",
+  "m": 0.76,
+  "t0": 73.77750894907038,
+  "clock_scale": 1.0004600200980764,
+  "sign": -1.0,
+  "fit_R2": 0.9403285964537175,
+  "coarse_corr": 0.9671438034498302,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_83_3freq.mat",
+  "m": 0.83,
+  "t0": 126.41610418969782,
+  "clock_scale": 1.0050950416967739,
+  "sign": 1.0,
+  "fit_R2": 0.9059158003050892,
+  "coarse_corr": 0.7508924224366708,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ },
+ {
+  "file": "motion_tracking_91_3freq.mat",
+  "m": 0.91,
+  "t0": 17.40543097318291,
+  "clock_scale": 1.0003399514205333,
+  "sign": -1.0,
+  "fit_R2": 0.9134184189043413,
+  "coarse_corr": 0.9521797882009989,
+  "note": "t0 = Arduino time (s) at video frame 1; t_arduino = clock_scale*(t0 + frame_time)"
+ }
+]
