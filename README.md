@@ -2,7 +2,7 @@
 
 This repository contains examples of Physical Reservoir Computing (PRC) systems suitable for PHRESCO competition submissions. We are preparing multiple examples that will be updated gradually. All examples use the NARMA2 (Nonlinear Auto-Regressive Moving Average) test as a benchmark to evaluate the computational capabilities of the physical reservoirs.
 
-> **Update (Nov 2026):** compared with the 2026 version of this repository, the NARMA target in the crumpled paper example is now generated from the commanded servo signal instead of a marker tracked on the paper, so the servo and its coupling to the paper are part of the reservoir. For this reservoir the performance increased, but this will not always be the case for other reservoirs.
+> **Update (Nov 2026):** to make the benchmark more rigorous, the NARMA target in the crumpled paper example is now generated from the commanded servo signal instead of a marker tracked on the paper (as in the 2026 version of this repository), so the servo and its coupling to the paper are part of the reservoir. For this reservoir the performance increased: across the 13 input periods in the results figure, the median NMSE dropped from 0.139 to 0.089 for NARMA2 and from 0.267 to 0.177 for NARMA5. This will not always be the case for other reservoirs.
 
 ## Overview: Physical Reservoir Computing Pipeline
 
