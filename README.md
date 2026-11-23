@@ -2,6 +2,8 @@
 
 This repository contains examples of Physical Reservoir Computing (PRC) systems suitable for PHRESCO 2026 competition submissions. We are preparing multiple examples that will be updated gradually. All examples use the NARMA2 (Nonlinear Auto-Regressive Moving Average) test as a benchmark to evaluate the computational capabilities of the physical reservoirs.
 
+> **Update (Nov 2026):** compared with the 2026 version of this repository, the NARMA target in the crumpled paper example is now generated from the commanded servo signal instead of a marker tracked on the paper, so the servo and its coupling to the paper are part of the reservoir. For this reservoir the performance increased, but this will not always be the case for other reservoirs.
+
 ## Overview: Physical Reservoir Computing Pipeline
 
 ![PRC Pipeline](images/pipeline_diagram.png)
@@ -38,7 +40,7 @@ This example demonstrates one of the easiest possible physical reservoir computi
 **Experimental Setup:**
 - **Reservoir**: A standard A4 paper, crumpled and then partially flattened, fixed at its centre point.
 - **Input Actuation**: Servo motor (EMAX ES9256) providing angular displacement following the input signal, driven by an Arduino running `Crumpled_paper.ino`, which writes a pulse of $800 + \lfloor 700\,(\mathrm{sig}(t)+1) \rfloor\ \mu s$ every 5 ms, with $\mathrm{sig}(t)=\sin(2\pi f_1 m t)\sin(2\pi f_2 m t)\sin(2\pi f_3 m t)$ and $m = 1/T$. **The input used in the NARMA test is this commanded pulse width.** (`Arduino_crumpled_paper.ino` is a tidied version of the same sketch with a 20 ms update step; it was not used for the recordings here.)
-- **Synchronisation**: these recordings did not log the Arduino clock, so the time of the first video frame on the Arduino clock was recovered once per video by fitting the command to the green marker's motion (only a start time and a clock-rate factor; fit R² 0.86 to 0.99). The results are in `servo_command_sync.json`. The green marker is used **only for this timing**, never as the NARMA input. In an earlier version of this example, the NARMA input was the green marker's position. That left the servo dynamics and the servo/paper coupling outside the reservoir, so it was changed in Nov 2026.
+- **Synchronisation**: these recordings did not log the Arduino clock, so the time of the first video frame on the Arduino clock was recovered once per video by fitting the command to the green marker's motion (only a start time and a clock-rate factor; fit R² 0.86 to 0.99). The results are in `servo_command_sync.json`. The green marker is used **only for this timing**, never as the NARMA input.
 - **Output Extraction**: 22 reservoir state variables (X and Y positions of the 11 blue markers) tracked by camera.
 
 ### Data Processing Pipeline
@@ -55,7 +57,7 @@ This example demonstrates one of the easiest possible physical reservoir computi
    - Evaluates Normalized Mean Square Error (NMSE)
    - Visualise the results
 
-   Python: `python python/crumpled_paper_narma.py [file.mat] [--order 5]` (needs numpy, scipy, matplotlib). `--input marker` reproduces the old definition for comparison. `python/make_result_figure.py` recreates the figure below, and `python/compare_input_sources.py` compares the old and new input definitions on every recording.
+   Python: `python python/crumpled_paper_narma.py [file.mat] [--order 5]` (needs numpy, scipy, matplotlib). `python/make_result_figure.py` recreates the figure below.
 
 ### Results
 
