@@ -39,7 +39,7 @@ This example demonstrates one of the easiest possible physical reservoir computi
 
 **Experimental Setup:**
 - **Reservoir**: A standard A4 paper, crumpled and then partially flattened, fixed at its centre point.
-- **Input Actuation**: Servo motor (EMAX ES9256) providing angular displacement following the input signal, driven by an Arduino running `Crumpled_paper.ino`, which writes a pulse of $800 + \lfloor 700\,(\mathrm{sig}(t)+1) \rfloor\ \mu s$ every 5 ms, with $\mathrm{sig}(t)=\sin(2\pi f_1 m t)\sin(2\pi f_2 m t)\sin(2\pi f_3 m t)$ and $m = 1/T$. **The input used in the NARMA test is this commanded pulse width.** (`Arduino_crumpled_paper.ino` is a tidied version of the same sketch with a 20 ms update step; it was not used for the recordings here.)
+- **Input Actuation**: Servo motor (EMAX ES9256) providing angular displacement following the input signal, driven by an Arduino running `Crumpled_paper.ino`, which writes a pulse of $800 + \lfloor 700\,(\mathrm{sig}(t)+1) \rfloor\ \mu s$ every 5 ms, with $\mathrm{sig}(t)=\sin(2\pi f_1 m t)\sin(2\pi f_2 m t)\sin(2\pi f_3 m t)$ and $m = 1/T$. **The input used in the NARMA test is this commanded pulse width.**
 - **Synchronisation**: these recordings did not log the Arduino clock, so the time of the first video frame on the Arduino clock was recovered once per video by fitting the command to the green marker's motion (only a start time and a clock-rate factor; fit R² 0.86 to 0.99). The results are in `servo_command_sync.json`. The green marker is used **only for this timing**, never as the NARMA input.
 - **Output Extraction**: 22 reservoir state variables (X and Y positions of the 11 blue markers) tracked by camera.
 
